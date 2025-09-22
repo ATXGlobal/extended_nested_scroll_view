@@ -949,6 +949,8 @@ class _NestedScrollCoordinator
         // This handles going forward (fling up) and inner list is scrolled past
         // zero. We want to grab the extra pixels immediately to shrink.
         extra = _outerPosition!.maxScrollExtent - _outerPosition!.pixels;
+        // clamp extra
+        extra = math.max(0.0, extra);
         assert(extra >= 0.0);
         minRange = pixels;
         maxRange = pixels + extra;
@@ -959,6 +961,8 @@ class _NestedScrollCoordinator
         // This handles going backward (fling down) and inner list is
         // underscrolled. We want to grab the extra pixels immediately to grow.
         extra = _outerPosition!.pixels - _outerPosition!.minScrollExtent;
+        // clamp extra
+        extra = math.max(0.0, extra);
         assert(extra >= 0.0);
         minRange = pixels - extra;
         maxRange = pixels;
@@ -978,6 +982,8 @@ class _NestedScrollCoordinator
               (_outerPosition!.maxScrollExtent -
                   _outerPosition!.minScrollExtent);
         }
+        // clamp extra
+        extra = math.min(0.0, extra);
         assert(extra <= 0.0);
         minRange = _outerPosition!.minScrollExtent;
         maxRange = _outerPosition!.maxScrollExtent + extra;
